@@ -1,0 +1,64 @@
+
+กรณี MockDB
+┌──────────────────────┐
+│  server.js           │  ← เปิดเครื่อง
+│  app.listen()        │
+└─────────┬────────────┘
+          ▼
+┌──────────────────────┐
+│  app.js              │  ← ประกอบร่าง
+│  express()           │
+│  express.json()      │
+│  /api                │
+└─────────┬────────────┘
+          ▼
+┌──────────────────────┐
+│ routes/index.js      │  ← รวม route
+│ /v1                  │
+└─────────┬────────────┘
+          ▼
+┌──────────────────────┐
+│ routes/v1/index.js   │  ← versioning
+│ /users               │
+└─────────┬────────────┘
+          ▼
+┌──────────────────────┐
+│ users.routes.js      │  ← HTTP map
+│ GET / POST / DELETE  │
+└─────────┬────────────┘
+          ▼
+┌──────────────────────┐
+│ users.controller.js  │  ← logic
+│ get / create / del   │
+└─────────┬────────────┘
+          ▼
+┌──────────────────────┐
+│ mock-db/users.js     │  ← ข้อมูล
+└──────────────────────┘
+
+
+การไหลของ request กรณี MongoDB
+
+Client
+ → server.js
+ → app.js
+ → routes
+ → controller
+ → model (mongoose)
+ → MongoDB (network)
+ → model
+ → controller
+ → response มี error ได้หลายแบบ
+
+หรือถ้าจะมองเป็นไฟล์คือ
+REST Client
+ → server.js (เปิด port)
+ → app.js (/api)
+ → routes/index.js (/v1)
+ → routes/v1/index.js (/users)
+ → users.routes.js (GET /)
+ → users.controller.js
+ → users.model.js
+ → MongoDB
+ → กลับทางเดิม
+

@@ -1,16 +1,17 @@
 {
-  "name": "express-app",
+  "name": "backend-express-app",
   "version": "1.0.0",
   "author": "",
-  "description": "",
   "license": "ISC",
+  "description": "",
   "type": "module",
   "main": "src/server.js",
   "scripts": {
     "start": "node src/server.js",
-    "dev": "node --watch src/server.js"
+    "dev": "node --env-file=.env --watch src/server.js"
   },
   "dependencies": {
-    "express": "^5.2.1"
+    "express": "^5.2.1",
+    "mongoose": "^9.0.2"
   }
 }
