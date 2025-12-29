@@ -27,7 +27,7 @@ export const getUser2 = async (req, res) => {
   }
 };
 
-// route handler: get user (mock)
+// ❌ route handler: get all users (mock)
 export const getUsers1 = (req, res) => {
   res.status(200).json(users);
   //   console.log(res);
@@ -49,7 +49,7 @@ export const getUsers2 = async (req, res) => {
   }
 };
 
-// route handler: delete a user (mock)
+// ❌ route handler: delete a user (mock)
 export const deleteUser1 = (req, res) => {
   const userId = req.params.id;
 
@@ -64,17 +64,16 @@ export const deleteUser1 = (req, res) => {
   }
 };
 
-// route handler: delete a user in the database
+// ✅ route handler: delete a user in the database
 export const deleteUser2 = async (req, res) => {
   const { id } = req.params;
-
   try {
-    const deleted = await User.findByIdAndDelete( id )
-    
-    if(!deleted) {
+    const deleted = await User.findByIdAndDelete(id);
+
+    if (!deleted) {
       return res.status(404).json({
         success: false,
-        error: "User not found..."
+        error: "User not found...",
       });
     }
 
@@ -90,7 +89,7 @@ export const deleteUser2 = async (req, res) => {
   }
 };
 
-// route handler: create a new user (mock)
+// ❌ route handler: create a new user (mock)
 export const createUser1 = (req, res) => {
   const { name, email } = req.body;
 
@@ -105,7 +104,7 @@ export const createUser1 = (req, res) => {
   res.status(201).json(newUser);
 };
 
-// route handler: create a new user in the database
+// ✅ route handler: create a new user in the database
 export const createUser2 = async (req, res) => {
   const { username, email, password, role } = req.body;
 
@@ -141,30 +140,29 @@ export const createUser2 = async (req, res) => {
   }
 };
 
-// route handler: update a user in the database
+// ✅ route handler: update a user in the database
 export const updateUser2 = async (req, res) => {
   const { id } = req.params;
 
   const body = req.body;
 
   try {
-  const updated = await User.findByIdAndUpdate(id, body)
+    const updated = await User.findByIdAndUpdate(id, body);
 
-  if (!updated) {
-    return res.status(404).json({
-      success: false,
-      error: "User not found...",
-    });
-  }
+    if (!updated) {
+      return res.status(404).json({
+        success: false,
+        error: "User not found...",
+      });
+    }
 
-    const safe = updated.toObject()
-    delete safe.password
+    const safe = updated.toObject();
+    delete safe.password;
 
     return res.status(200).json({
       success: true,
-      data: safe
+      data: safe,
     });
-
   } catch (error) {
     if (error.code === 11000) {
       return res.status(409).json({
@@ -175,7 +173,7 @@ export const updateUser2 = async (req, res) => {
 
     return res.status(500).json({
       success: false,
-      error: "Failed to create user...",
+      error: "Failed to update user...",
     });
   }
 };

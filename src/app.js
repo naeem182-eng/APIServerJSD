@@ -5,14 +5,15 @@ import { router as apiRoutes } from "./routes/index.js";
 export const app = express();
 
 const corsOptions = {
-    origin: [
-        "http://localhost:5173",
-        "http://localhost:5174",
-        "http://localhost:5175",
-    ],
+  origin: [
+    "http://localhost:5173",
+    "http://localhost:5174",
+    "http://localhost:5175",
+    "https://jsd-react-assessment-solution.vercel.app",
+  ],
 };
 
-app.use (cors());
+app.use(cors(corsOptions));
 
 app.use(express.json());
 
