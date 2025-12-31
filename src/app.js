@@ -1,3 +1,5 @@
+console.log("SERVER FILE:", import.meta.url);
+
 import express from "express";
 import cors from "cors";
 import { router as apiRoutes } from "./routes/index.js";
@@ -34,6 +36,7 @@ next(error);
 // Centralize Error Handling Middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
+  console.log("🔥 NEW ERROR HANDLER RUNNING");
 
   res.status(err.status || 500).json({
     success: false,
